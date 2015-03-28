@@ -58,6 +58,19 @@ public class MainFrame extends JFrame {
        outputArea = new JEditorPane(); //JEDITORPANE TO DISPLAY HTML code .
        outputArea.setEditable(false);
        outputArea.setBounds(520, 70, 400, 450);
+       outputArea.addHyperlinkListener(
+				new HyperlinkListener() {
+					
+					@Override
+					public void hyperlinkUpdate(HyperlinkEvent e) {
+						// TODO Auto-generated method stub
+						if(e.getEventType()==HyperlinkEvent.EventType.ACTIVATED)
+						{
+							BrowserWindow bw = new BrowserWindow();
+							bw.getThePage(e.getURL().toString());
+						}
+					}
+				});
        midEastPanel.add(midEastLabel,BorderLayout.NORTH);
        midEastPanel.add(new JScrollPane(outputArea),BorderLayout.SOUTH);
        midWestPanel.setBounds(500, 60,470,470);
