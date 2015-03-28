@@ -14,14 +14,17 @@ import java.awt.event.KeyAdapter;
  * @author DEVANG GAUR
  *
  */
-public class LogicBase implements KeyListener{
+public class LogicBase extends KeyAdapter{
 	
 	MainFrame frame;
-	String location="C:\Users\DEVANG GAUR\Documents\GitHub\MorseCodeParser\MorseCodeParser\resources\TestFile.html";
+	ReadWriteLogic rwl = null;
 	@Override
-	public void keyTyped(KeyEvent arg0) {
+	public void keyTyped(KeyEvent event) {
 		// TODO Auto-generated method stub
-		
+		if(event.getKeyCode()==KeyEvent.VK_ENTER)
+	       {
+	    	   getThePage();
+	       }
 	}
 	
 	@Override
@@ -35,19 +38,26 @@ public class LogicBase implements KeyListener{
 		// TODO Auto-generated method stub
        if(event.getKeyCode()==KeyEvent.VK_ENTER)
        {
-    	   getThePage(location);
+    	   getThePage();
        }
 	}
-	public void getThePage(String location)
+	public void getThePage()
 	{
 		frame = new MainFrame();
 		try
 		{
-			frame.getOutputArea().setPage(location);
+			rwl= new ReadWriteLogic();
+			rwl.Write(frame.getInputArea());
+			rwl.Read();
+			frame.getOutputArea().setContentType("text/html");
+			frame.getOutputArea().setText(rwl.getStr());
+			
 		}
-		catch(IOException e)
+		catch(Exception e)
 		{
-			JOptionPane.showMessageDialog(null,"Error retrieving specified URL","Bad URL",JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Error","Bad file",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }
+

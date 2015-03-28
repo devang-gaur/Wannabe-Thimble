@@ -26,47 +26,52 @@ public class MainFrame extends JFrame {
 	
    JPanel topPanel ,midPanel ,midWestPanel, midEastPanel, bottomPanel;
    JLabel topLabel,midWestLabel,midEastLabel,bottomLabel;
-   JTextArea inputArea;
+   final JTextArea inputArea;
    JEditorPane outputArea;
    LogicBase logic;
    public MainFrame()
    {
 	   topPanel = new JPanel();
-	   topLabel.setText("Type your html code on the left screen and see what you get on the right one.");
+	   topPanel.setBounds(50,20,900, 50);
+	   topLabel=new JLabel("Type your html code on the left screen and see what you get on the right one.");
        topPanel.add(topLabel,BorderLayout.CENTER);
        
        add(topPanel,BorderLayout.NORTH);
-       
+       //Mid panel : contains Mid east and mid west panel
        midPanel = new JPanel();
-       
+       //Mid west Panel
        midWestPanel = new JPanel();
        midWestLabel = new JLabel("Enter your HTML code here:");
-       inputArea = new JTextArea();
-       
-       inputArea.addKeyListener(
-    		
-				 new LogicBase()
-				   );
-       inputArea.setEditable(true);
+       inputArea = new JTextArea("Yo");
+       inputArea.setBounds(50, 70, 400, 450);
+       inputArea.addKeyListener(new LogicBase());
+       inputArea.setEditable(true);  
        midWestPanel.add(midWestLabel,BorderLayout.NORTH);
-       midWestPanel.add(inputArea,BorderLayout.CENTER);
-       
+       midWestPanel.add(new JScrollPane(inputArea),BorderLayout.SOUTH);
+       midWestPanel.setBounds(30, 60,470,470);
        midPanel.add(midWestPanel,BorderLayout.WEST);
        
+       //THE MID_EAST PANEL
        midEastPanel = new JPanel(); 
        midEastLabel= new JLabel("Result :");
-       outputArea = new JEditorPane();
-       outputArea.setEditable(false);
-       midEastPanel.add(midEastLabel,BorderLayout.NORTH);
-       midEastPanel.add(outputArea,BorderLayout.CENTER);
        
+       outputArea = new JEditorPane(); //JEDITORPANE TO DISPLAY HTML code .
+       outputArea.setEditable(false);
+       outputArea.setBounds(520, 70, 400, 450);
+       midEastPanel.add(midEastLabel,BorderLayout.NORTH);
+       midEastPanel.add(new JScrollPane(outputArea),BorderLayout.SOUTH);
+       midWestPanel.setBounds(500, 60,470,470);
        midPanel.add(midEastPanel, BorderLayout.EAST);
        
        add(midPanel,BorderLayout.CENTER);
        
        
+       
+       //The bottom panel to display info on upcoming features
        bottomPanel = new JPanel();
+       bottomPanel.setSize(900,130);
        bottomLabel = new JLabel("...will add CSS compatibility soon.");
+       bottomPanel.add(bottomLabel,BorderLayout.CENTER);
        add(bottomPanel,BorderLayout.SOUTH);
    }
    
