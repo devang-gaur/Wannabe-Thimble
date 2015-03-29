@@ -26,9 +26,9 @@ public class MainFrame extends JFrame {
 	
    JPanel topPanel ,midPanel ,midWestPanel, midEastPanel, bottomPanel;
    JLabel topLabel,midWestLabel,midEastLabel,bottomLabel;
-   final JTextArea inputArea;
-   JEditorPane outputArea;
-   LogicBase logic;
+   JTextArea inputArea;
+   public static JEditorPane outputArea;
+	//SubLogicBase slb = new SubLogicBase();
    public MainFrame()
    {
 	   topPanel = new JPanel();
@@ -42,12 +42,34 @@ public class MainFrame extends JFrame {
        //Mid west Panel
        midWestPanel = new JPanel();
        midWestLabel = new JLabel("Enter your HTML code here:");
-       inputArea = new JTextArea("Yo");
+       inputArea = new JTextArea();
        inputArea.setBounds(50, 70, 400, 450);
-       inputArea.addKeyListener(new LogicBase());
+       inputArea.addKeyListener(new KeyListener() {
+		
+		@Override
+		public void keyTyped(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+		
+				System.out.println("here");
+				outputArea.setContentType("text/html");
+				outputArea.setText(getInputAreaText());
+				System.out.println(getInputAreaText());
+		       
+		}
+		
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+		}
+		
+		@Override
+		public void keyPressed(KeyEvent event) {
+			// TODO Auto-generated method stub
+		}
+	});
        inputArea.setEditable(true);  
        midWestPanel.add(midWestLabel,BorderLayout.NORTH);
-       midWestPanel.add(new JScrollPane(inputArea),BorderLayout.SOUTH);
+       midWestPanel.add(inputArea,BorderLayout.SOUTH);
        midWestPanel.setBounds(30, 60,470,470);
        midPanel.add(midWestPanel,BorderLayout.WEST);
        
@@ -72,7 +94,7 @@ public class MainFrame extends JFrame {
 					}
 				});
        midEastPanel.add(midEastLabel,BorderLayout.NORTH);
-       midEastPanel.add(new JScrollPane(outputArea),BorderLayout.SOUTH);
+       midEastPanel.add(outputArea,BorderLayout.SOUTH);
        midWestPanel.setBounds(500, 60,470,470);
        midPanel.add(midEastPanel, BorderLayout.EAST);
        
@@ -88,13 +110,13 @@ public class MainFrame extends JFrame {
        add(bottomPanel,BorderLayout.SOUTH);
    }
    
-   public JTextArea getInputArea()
+   public String getInputAreaText()
    {
-	 return inputArea;   
+	 return inputArea.getText();   
    }
    
    public JEditorPane getOutputArea()
    {
-	   return outputArea;
+	    return outputArea;
    }
 }
