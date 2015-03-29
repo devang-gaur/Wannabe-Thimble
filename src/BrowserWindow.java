@@ -42,8 +42,8 @@ public class BrowserWindow extends JFrame{
 						// TODO Auto-generated method stub
 						if(e.getEventType()==HyperlinkEvent.EventType.ACTIVATED)
 						{
-							BrowserWindow bw = new BrowserWindow();
-							bw.getThePage(e.getURL().toString());
+							
+							getThePage(e.getURL().toString());
 						}
 					}
 				});

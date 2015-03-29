@@ -15,3 +15,17 @@ public class Index {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
+/*
+ *
+ *Just a Sample Input :
+ *<html>
+ *<head>
+ *<body>
+ *Hi there .<br> Welcome.<br>
+ *<a href="http://www.google.co.in">
+ *Google here
+ *</a>
+ *</body>
+ *</head>
+ *</html>
+*/

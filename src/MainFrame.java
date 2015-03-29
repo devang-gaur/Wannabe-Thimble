@@ -26,39 +26,66 @@ public class MainFrame extends JFrame {
 	
    JPanel topPanel ,midPanel ,midWestPanel, midEastPanel, bottomPanel;
    JLabel topLabel,midWestLabel,midEastLabel,bottomLabel;
-   final JTextArea inputArea;
-   JEditorPane outputArea;
-   LogicBase logic;
+   static JTextArea inputArea;
+    JEditorPane outputArea;
    public MainFrame()
    {
+	   
+	   
+	   //The Top panel . To instruct the user
 	   topPanel = new JPanel();
 	   topPanel.setBounds(50,20,900, 50);
 	   topLabel=new JLabel("Type your html code on the left screen and see what you get on the right one.");
        topPanel.add(topLabel,BorderLayout.CENTER);
-       
        add(topPanel,BorderLayout.NORTH);
+       
+       
+       
        //Mid panel : contains Mid east and mid west panel
        midPanel = new JPanel();
        //Mid west Panel
        midWestPanel = new JPanel();
        midWestLabel = new JLabel("Enter your HTML code here:");
-       inputArea = new JTextArea("Yo");
+       inputArea = new JTextArea("                 ");
        inputArea.setBounds(50, 70, 400, 450);
-       inputArea.addKeyListener(new LogicBase());
+       inputArea.addKeyListener(new KeyListener() {
+		
+		@Override
+		public void keyTyped(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			outputArea.setText(getInputAreaText());
+		}
+		
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void keyPressed(KeyEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+	});
+       
+       
        inputArea.setEditable(true);  
        midWestPanel.add(midWestLabel,BorderLayout.NORTH);
-       midWestPanel.add(new JScrollPane(inputArea),BorderLayout.SOUTH);
+       midWestPanel.add(inputArea,BorderLayout.SOUTH);
        midWestPanel.setBounds(30, 60,470,470);
        midPanel.add(midWestPanel,BorderLayout.WEST);
+       
        
        //THE MID_EAST PANEL
        midEastPanel = new JPanel(); 
        midEastLabel= new JLabel("Result :");
        
        outputArea = new JEditorPane(); //JEDITORPANE TO DISPLAY HTML code .
+       outputArea.setContentType("text/html");
        outputArea.setEditable(false);
        outputArea.setBounds(520, 70, 400, 450);
-       outputArea.addHyperlinkListener(
+       outputArea.addHyperlinkListener( //THE HYPERLINK EVENT HANDLER TO OPEN ANY LINK IN THE OUTPUT AREA
 				new HyperlinkListener() {
 					
 					@Override
@@ -66,13 +93,12 @@ public class MainFrame extends JFrame {
 						// TODO Auto-generated method stub
 						if(e.getEventType()==HyperlinkEvent.EventType.ACTIVATED)
 						{
-							BrowserWindow bw = new BrowserWindow();
-							bw.getThePage(e.getURL().toString());
+							new BrowserWindow().getThePage(e.getURL().toString());;
 						}
 					}
 				});
        midEastPanel.add(midEastLabel,BorderLayout.NORTH);
-       midEastPanel.add(new JScrollPane(outputArea),BorderLayout.SOUTH);
+       midEastPanel.add(outputArea,BorderLayout.SOUTH);
        midWestPanel.setBounds(500, 60,470,470);
        midPanel.add(midEastPanel, BorderLayout.EAST);
        
@@ -88,13 +114,13 @@ public class MainFrame extends JFrame {
        add(bottomPanel,BorderLayout.SOUTH);
    }
    
-   public JTextArea getInputArea()
+   public String getInputAreaText()
    {
-	 return inputArea;   
+	 return inputArea.getText();   
    }
    
-   public JEditorPane getOutputArea()
+   /*public JEditorPane getOutputArea()
    {
 	   return outputArea;
-   }
+   }*/
 }
